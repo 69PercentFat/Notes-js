@@ -107,12 +107,17 @@ button:hover {
     background-color: #1565c0;
 }
 
+.link {
+    text-decoration:solid;
+    color: #ad0000;
+}
+
 #footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: #333;
-    color: #fff;
+    background-color: #292828;
+    color: #ff7070;
     padding: 5px;
 }
 
