@@ -63,10 +63,12 @@ function displayNotes() {
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
+        deleteButton.className = 'delete-button';
         deleteButton.onclick = () => deleteNote(note.id);
 
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit';
+        editButton.className = 'edit-button';
         editButton.onclick = () => editNote(note.id);
 
         const toggleButton = document.createElement('button');
