@@ -7,21 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
 let notes = [];
 
 function addNote() {
-    const noteInput = document.getElementById('note-input');
+    const noteInput = document.getElementById("note-input");
     const noteContent = noteInput.value.trim();
-
-    if (noteContent !== '') {
-        const newNote = {
-            id: Date.now(),
-            content: noteContent,
-            done: false
-        };
-
-        notes.push(newNote);
-        saveNotes();
-        displayNotes();
-
-        noteInput.value = '';
+    
+    if (noteContent !== "") {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+    
+    const newNote = {
+    id: Date.now(),
+    content: noteContent,
+    done: false,
+    timestamp: formattedDate,
+    };
+    
+    notes.push(newNote);
+    saveNotes();
+    displayNotes();
+    
+    noteInput.value = "";
     }
 }
 
@@ -51,31 +55,36 @@ function saveNotes() {
 }
 
 function displayNotes() {
-    const notesContainer = document.getElementById('notes-container');
-    notesContainer.innerHTML = '';
+    const notesContainer = document.getElementById("notes-container");
+    notesContainer.innerHTML = "";
 
-    notes.forEach(note => {
-        const card = document.createElement('div');
-        card.className = `card ${note.done ? 'done' : ''}`;
+    notes.forEach((note) => {
+        const card = document.createElement("div");
+        card.className = `card ${note.done ? "done" : ""}`;
 
-        const content = document.createElement('p');
+        const content = document.createElement("p");
         content.textContent = note.content;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.className = 'delete-button';
-        deleteButton.onclick = () => deleteNote(note.id);
+        const timestamp = document.createElement("p");
+        timestamp.className = "timestamp";
+        timestamp.textContent = `Last Updated: ${note.timestamp}`;
 
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.className = 'edit-button';
-        editButton.onclick = () => editNote(note.id);
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete-button";
+        deleteButton.onclick = () => deleteNote(note.id); // Fix here
 
-        const toggleButton = document.createElement('button');
-        toggleButton.textContent = note.done ? 'Undo' : 'Done';
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "edit-button";
+        editButton.onclick = () => editNote(note.id); // Fix here
+
+        const toggleButton = document.createElement("button");
+        toggleButton.textContent = note.done ? "Undo" : "Done";
         toggleButton.onclick = () => toggleDone(note.id);
 
         card.appendChild(content);
+        card.appendChild(timestamp);
         card.appendChild(deleteButton);
         card.appendChild(editButton);
         card.appendChild(toggleButton);
