@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if there are any existing notes in local storage
     const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
     notes = storedNotes;
     displayNotes();
@@ -22,7 +21,6 @@ function addNote() {
         saveNotes();
         displayNotes();
 
-        // Clear the input field
         noteInput.value = '';
     }
 }
@@ -37,6 +35,15 @@ function toggleDone(id) {
     notes = notes.map(note => (note.id === id ? { ...note, done: !note.done } : note));
     saveNotes();
     displayNotes();
+}
+
+function editNote(id) {
+    const newContent = prompt('Edit the note:', notes.find(note => note.id === id).content);
+    if (newContent !== null) {
+        notes = notes.map(note => (note.id === id ? { ...note, content: newContent } : note));
+        saveNotes();
+        displayNotes();
+    }
 }
 
 function saveNotes() {
@@ -58,12 +65,17 @@ function displayNotes() {
         deleteButton.textContent = 'Delete';
         deleteButton.onclick = () => deleteNote(note.id);
 
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.onclick = () => editNote(note.id);
+
         const toggleButton = document.createElement('button');
         toggleButton.textContent = note.done ? 'Undo' : 'Done';
         toggleButton.onclick = () => toggleDone(note.id);
 
         card.appendChild(content);
         card.appendChild(deleteButton);
+        card.appendChild(editButton);
         card.appendChild(toggleButton);
         notesContainer.appendChild(card);
     });
