@@ -70,8 +70,8 @@ button:hover {
 }
 
 .done {
-    background-color: #f0f0f0;
-    text-decoration: line-through;
+    background-color: #f57d7d;
+    text-decoration:line-through;
 }
 
 .delete-button, .toggle-button {
